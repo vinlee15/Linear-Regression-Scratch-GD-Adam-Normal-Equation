@@ -1,0 +1,15 @@
+# --- Python rác ---
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- Môi trường ảo ---
+venv/
+env/
+
+# --- Dữ liệu (Nếu Vinh quyết định không đẩy lên) ---
+# data/*.csv
+
+# --- Các file cấu hình của IDE ---
+.vscode/
+.idea/
