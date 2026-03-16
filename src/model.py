@@ -1,11 +1,6 @@
 import numpy as np
 import copy
 
-# w : (n, 1)
-# b : scalar
-# x : (m, n)
-# y : (m, 1)
-
 def predict_price(x, w, b):
     return np.dot(x, w) + b
 
