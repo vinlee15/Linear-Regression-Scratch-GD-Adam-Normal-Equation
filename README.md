@@ -87,7 +87,6 @@ w_{t+1} = w_t - \alpha \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}
 $$
 
 Trong đó:
-Trong đó:
 * $\alpha$: Tốc độ học (Learning Rate).
 * $\beta_1, \beta_2$: Các hệ số phân rã (thường là $0.9$ và $0.999$).
 * $\epsilon$: Số cực nhỏ để tránh lỗi chia cho 0 (thường là $10^{-8}$).
