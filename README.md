@@ -61,7 +61,7 @@ $$
 w = w - \alpha \frac{\partial J}{\partial w} \quad , \quad b = b - \alpha \frac{\partial J}{\partial b}
 $$
 
-3.2. Adam Optimizer (Nâng cao)
+#### 3.2. Adam Optimizer (Nâng cao)
 Adam kết hợp cơ chế Momentum (quán tính) và RMSProp (tốc độ học thích nghi).
 
 ##### Bước 1: Cập nhật các Moment (Trung bình động):
