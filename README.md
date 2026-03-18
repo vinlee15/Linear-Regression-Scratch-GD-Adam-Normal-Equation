@@ -1,6 +1,6 @@
 # 🏠 Dự đoán Giá nhà: So sánh Gradient Descent, Adam Optimizer & Normal Equation (From Scratch)
 
-Dự án này triển khai mô hình **Linear Regression** hoàn toàn từ con số 0 bằng **NumPy** để dự đoán giá nhà từ bộ dữ liệu Kaggle nổi tiếng. Trọng tâm của dự án là phân tích thực nghiệm và nghiên cứu hiệu suất giữa ba thuật toán tối ưu hóa: **Gradient Descent (GD)** truyền thống, **Adam Optimizer** và **Normal Equation (OLS).
+Dự án này triển khai mô hình **Linear Regression** hoàn toàn từ con số 0 bằng **NumPy** để dự đoán giá nhà từ bộ dữ liệu Kaggle nổi tiếng. Trọng tâm của dự án là phân tích thực nghiệm và nghiên cứu hiệu suất giữa ba thuật toán tối ưu hóa: **Gradient Descent (GD)** truyền thống, **Adam Optimizer** và **Normal Equation (OLS)**.
 
 ---
 
@@ -89,7 +89,18 @@ $$
 Trong đó:
 * $\alpha$: Tốc độ học (Learning Rate).
 * $\beta_1, \beta_2$: Các hệ số phân rã (thường là $0.9$ và $0.999$).
-* $\epsilon$: Số cực nhỏ để tránh lỗi chia cho 0 (thường là $10^{-8}$).
+* $\epsilon$: Số cực nhỏ để tránh lỗi chia cho 0 (thường là $10^{-8}$)
+
+#### 3.3. Normal Equation (OLS)
+Tìm trực tiếp điểm cực tiểu của hàm mất mát bằng đại số tuyến tính mà không cần vòng lặp:
+
+$$
+\theta = (\mathbf{X}^T \mathbf{X} + \lambda \mathbf{L})^{-1} \mathbf{X}^T \mathbf{y}
+$$
+
+Trong đó: 
+* $\lambda$: Hệ số chính quy hóa (Regularization parameter).
+* Ma trận $\mathbf{L}$ là ma trận đơn vị hiệu chỉnh ($\mathbf{L}_{0,0} = 0$) để đảm bảo không áp dụng chính quy hóa lên hệ số chặn (bias).
   
 ## 🛠 Cài đặt và Sử dụng
 ### 1. Clone project:
