@@ -1,6 +1,11 @@
 import numpy as np
 import copy
 
+# w : (n, 1)
+# b : scalar
+# x : (m, n)
+# y : (m, 1)
+
 def predict_price(x, w, b):
     return np.dot(x, w) + b
 
@@ -37,13 +42,13 @@ def gradient_decent(w_in, b_in, x_train, y_real, alpha, num_iters, epsilon, lamb
         y_train = predict_price(x_train, w, b)
         cost = compute_cost(w, y_train, y_real, lambda_)
 
-        w_history.append(copy.deepcopy(w))
-        cost_history.append(cost)
-        diff = temp_cost - cost
-        temp_cost = cost
-
         if t % 100 == 0:
             print(f"Vòng {t:5}: Cost = {cost:.6f}")
+
+        w_history.append(copy.deepcopy(w))
+        cost_history.append(cost)
+
+        diff = temp_cost - cost
 
         if 0 <= diff < epsilon:
             print(f"--- Thuật toán hội tụ tại vòng {t} Cost = {cost:.6f}")
@@ -52,6 +57,8 @@ def gradient_decent(w_in, b_in, x_train, y_real, alpha, num_iters, epsilon, lamb
         if diff < 0:
             print(f"Cảnh báo: Alpha quá cao! Cost tăng từ {temp_cost:.6f} lên {cost:.6f} tại vòng {t}")
             alpha /= 3
+
+        temp_cost = cost
     
     return w, b, w_history, cost_history
 
@@ -92,11 +99,11 @@ def adam_optimizer(w_in, b_in, x_train, y_real, alpha, num_iters, epsilon, lambd
 
         w_history.append(copy.deepcopy(w))
         cost_history.append(cost)
-        diff = temp_cost - cost
-        temp_cost = cost
 
         if t % 100 == 0:
             print(f"Vòng {t:5}: Cost = {cost:.6f}")
+    
+        diff = temp_cost - cost
 
         if 0 <= diff < epsilon:
             print(f"--- Thuật toán hội tụ tại vòng {t} Cost = {cost:.6f} ---")
@@ -104,6 +111,29 @@ def adam_optimizer(w_in, b_in, x_train, y_real, alpha, num_iters, epsilon, lambd
 
         if diff < 0:
             print(f"Cảnh báo: Alpha quá cao! Cost tăng từ {temp_cost:.6f} lên {cost:.6f} tại vòng {t}")
-            alpha /= 3 
+            alpha /= 3
+
+        temp_cost = cost 
 
     return w, b, w_history, cost_history
+
+def normal_equation(x_train, y_real, lambda_):
+    m, n = x_train.shape
+    I = np.eye(n + 1)
+    I[0, 0] = 0
+
+    X = np.empty((m, n + 1))
+    X[:, 0] = 1
+    X[:, 1: ] = x_train 
+
+    X_transpose = np.transpose(X)
+    xtx_inv = np.linalg.pinv(np.dot(X_transpose, X) + lambda_ * I)
+    xty = np.dot(X_transpose, y_real)
+    w = np.dot(xtx_inv, xty)
+    
+    y_train = predict_price(x_train, w[1:, 0], w[0, 0])
+    y_train = y_train.reshape(-1, 1)
+    cost = compute_cost(w[1:, 0], y_train, y_real, lambda_)
+    print(f"--- Thuật toán hội tụ tại Cost = {cost:.6f}")
+
+    return w[1:, 0], w[0, 0]
