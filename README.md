@@ -1,15 +1,14 @@
-# 🏠 Dự đoán Giá nhà: So sánh Gradient Descent và Adam Optimizer (From Scratch)
+# 🏠 Dự đoán Giá nhà: So sánh Gradient Descent, Adam Optimizer & Normal Equation (From Scratch)
 
-Dự án này triển khai mô hình **Linear Regression** hoàn toàn từ con số 0 bằng **NumPy** để dự đoán giá nhà từ bộ dữ liệu Kaggle nổi tiếng. Trọng tâm của dự án là phân tích thực nghiệm và nghiên cứu hiệu suất giữa hai thuật toán tối ưu hóa: **Gradient Descent (GD)** truyền thống và **Adam Optimizer**.
+Dự án này triển khai mô hình **Linear Regression** hoàn toàn từ con số 0 bằng **NumPy** để dự đoán giá nhà từ bộ dữ liệu Kaggle nổi tiếng. Trọng tâm của dự án là phân tích thực nghiệm và nghiên cứu hiệu suất giữa ba thuật toán tối ưu hóa: **Gradient Descent (GD)** truyền thống, **Adam Optimizer** và **Normal Equation (OLS).
 
 ---
 
 ## 🚀 Điểm nổi bật của dự án
 * **Triển khai thuần NumPy:** Toàn bộ logic mô hình và bộ tối ưu được viết bằng ma trận NumPy, không sử dụng các thư viện ML bậc cao như Scikit-learn hay TensorFlow.
 * **Tiền xử lý dữ liệu (Feature Engineering):** Áp dụng Log Transformation cho biến mục tiêu, One-hot Encoding cho dữ liệu phân loại, xử lý giá trị khuyết và Standard Scaling.
-* **Bộ tối ưu tùy chỉnh:** Tự triển khai **Adam Optimizer** với đầy đủ các cơ chế Momentum và Adaptive Learning Rate.
 * **Chống Overfitting:** Tích hợp **L2 Regularization (Ridge Regression)** để kiểm soát độ lớn trọng số, giúp mô hình bền vững hơn.
-
+* **Đa dạng phương pháp tối ưu**: So sánh trực tiếp giữa thuật toán lặp **(GD, Adam)** và thuật toán giải trực tiếp **(Normal Equation)**
 ---
 
 ## 📊 Kết quả thực nghiệm (Kaggle Public Score)
@@ -23,12 +22,13 @@ Kết quả so sánh trên bài toán [House Prices Competition](https://www.kag
 
 ![kết quả của Adam Optimizer](assets/adam_learning_curve.png)
 
-| Thuật toán | Tốc độ học ($\alpha$) | Số vòng lặp | Cost | Điểm Kaggle (RMSLE) |
-| :--- | :---: | :---: | :--- | :---|
-| **Gradient Descent** | $0.06$ | $7953$ | $0.005846$ | **$0.15541$** |
-| **Adam Optimizer** | $0.003$ | $2382$ | $0.005402$ | **$0.14285$** |
+| Thuật toán | Loại hình | Tốc độ học ($\alpha$) | Số vòng lặp | Cost | Điểm Kaggle (RMSLE) |
+| :--- | :---: | :---: | :--- | :---| :---|
+| **Gradient Descent** | Iterative | $0.06$ | $7953$ | $0.005846$ | **$0.15541$** |
+| **Adam Optimizer** | Iterative |$0.003$ | $2382$ | $0.005402$ | **$0.14285$** |
+| **Normal Equation** | Analytical | N/A | $1$ | $0.004720$ | **$0.15002$** |
 
-> **Nhận xét:** Adam Optimizer giúp giảm sai số khoảng **8%** so với Gradient Descent truyền thống. Dù sử dụng tốc độ học nhỏ hơn 20 lần, Adam vẫn tìm được điểm hội tụ sâu hơn nhờ cơ chế điều chỉnh thông minh.
+> **Nhận xét:** Bảng so sánh cho thấy sự khác biệt rõ rệt về khả năng tối ưu hóa và tính tổng quát hóa của từng thuật toán. Adam Optimizer đạt hiệu quả cao nhất trên thực tế với điểm Kaggle (RMSLE) tốt nhất là 0.14285, mặc dù mức Cost trên tập huấn luyện (0.005402) không phải là thấp nhất. Ngược lại, Normal Equation đạt mức Cost tối ưu nhất (0.004720) nhờ phương pháp giải tích trực tiếp, nhưng lại có điểm Kaggle kém hơn Adam (0.15002), minh chứng cho việc mô hình bị quá khớp (overfitting) khi cố gắng bám sát dữ liệu huấn luyện quá mức. So với Gradient Descent truyền thống, Adam thể hiện sự vượt trội hoàn toàn khi hội tụ nhanh hơn gấp 3.3 lần (chỉ cần 2382 vòng lặp so với 7953) và đạt độ chính xác cao hơn hẳn dù sử dụng tốc độ học ($\alpha$) nhỏ hơn rất nhiều. Tổng kết lại, Adam Optimizer là phương pháp cân bằng tốt nhất giữa việc giảm thiểu hàm mất mát và khả năng dự báo chính xác trên dữ liệu thực tế, trong khi Normal Equation mạnh về tốc độ tính toán nhưng đòi hỏi kiểm soát tham số $\lambda$ chặt chẽ hơn để tránh sai số trên tập kiểm tra.
 
 ---
 
